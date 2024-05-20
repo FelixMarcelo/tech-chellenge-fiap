@@ -4,3 +4,5 @@ requests
 beautifulsoup4
 pytz
 pydantic
+pyjwt
+python-multipart

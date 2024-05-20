@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routes import router
+from app.routes import user_router, auth_router
 
 app = FastAPI(
     title="FIAP Tech Challenge API",
@@ -14,5 +14,6 @@ def home():
             "'/docs' for documentation)")
 
 
-app.include_router(router=router)
+app.include_router(router=user_router)
+app.include_router(router=auth_router)
 
