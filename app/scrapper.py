@@ -18,7 +18,7 @@ def headers():
     return agent_headers
 
 
-def find_final_year(final_year: int):
+def _find_final_year(final_year: int):
     request = requests.get(f'{url_base}{url_opt}{final_year}',
                            headers=headers())
     html = Soup(request.content, 'html.parser')
@@ -53,7 +53,7 @@ def _validate_time_range(final_year):
 
 def data_producao(first_year: int, last_year: int):
     opt = 2
-    final_year = find_final_year(opt)
+    final_year = _find_final_year(opt)
     data = []
 
     first_year, last_year, final_year = _reset_initial_params(first_year, last_year, final_year)
@@ -83,7 +83,7 @@ def data_producao(first_year: int, last_year: int):
 
 def data_processamento(first_year: int, last_year: int):
     opt = 3
-    final_year = find_final_year(opt)
+    final_year = _find_final_year(opt)
     data = []
 
     first_year, last_year, final_year = _reset_initial_params(first_year, last_year, final_year)
@@ -113,7 +113,7 @@ def data_processamento(first_year: int, last_year: int):
 
 def data_comercializacao(first_year: int, last_year: int):
     opt = 4
-    final_year = find_final_year(opt)
+    final_year = _find_final_year(opt)
     data = []
 
     first_year, last_year, final_year = _reset_initial_params(first_year, last_year, final_year)
@@ -143,7 +143,7 @@ def data_comercializacao(first_year: int, last_year: int):
 
 def data_importacao(first_year: int, last_year: int):
     opt = 5
-    final_year = find_final_year(opt)
+    final_year = _find_final_year(opt)
     data = []
 
     first_year, last_year, final_year = _reset_initial_params(first_year, last_year, final_year)
@@ -171,7 +171,7 @@ def data_importacao(first_year: int, last_year: int):
 
 def data_exportacao(first_year: int, last_year: int):
     opt = 6
-    final_year = find_final_year(opt)
+    final_year = _find_final_year(opt)
     data = []
 
     first_year, last_year, final_year = _reset_initial_params(first_year, last_year, final_year)

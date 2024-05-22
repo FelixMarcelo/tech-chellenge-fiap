@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "4000:4000"
+    environment:
+      - DB_URL=postgresql+psycopg2://postgresql/main?user=admin&password=adminpass
+    depends_on:
+      - postgresql
+    entrypoint: ["sh", "-c", "poetry run alembic upgrade head && poetry run python main.py --host=0.0.0.0 --port=4000"]
+
+  postgresql:
+    image: postgres
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./.env
+    volumes:
+      - /var/cache/postgres_data:/var/lib/postgresql/data
