@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup as Soup
 import requests
 import re
 from app import models
-from fastapi import HTTPException
+from fastapi import HTTPException, status
 
 url_base = "http://vitibrasil.cnpuv.embrapa.br/index.php?"
 url_year = "ano="
@@ -34,24 +34,30 @@ def _reset_initial_params(first_year, last_year, final_year):
     if last_year == "{last_year}":
         last_year = final_year
 
-    first_year = int(first_year)
-    last_year = int(last_year)
+    try:
+        first_year = int(first_year)
+        last_year = int(last_year)
+    except (ValueError, TypeError):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="You need to pass numeric values as params."
+        )
 
-    if (first_year < 1970) | (last_year > final_year):
-        _validate_time_range(final_year)
+    _validate_time_range(first_year, last_year, final_year)
 
     return first_year, last_year, final_year
 
 
-def _validate_time_range(final_year):
-    raise HTTPException(
-        status_code=400,
-        detail=f"Sorry, we only have data from 1970 to {final_year}. But don't worry, try again "
-               "using a period between those dates"
-    )
+def _validate_time_range(first_year: int, last_year: int, final_year: int):
+    if (first_year < 1970) | (last_year > final_year):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Sorry, we only have data from 1970 to {final_year}. But don't worry, try again "
+                   "using a period between those dates"
+        )
 
 
-def data_producao(first_year: int, last_year: int):
+def data_producao(first_year, last_year):
     opt = 2
     final_year = _find_final_year(opt)
     data = []
@@ -81,7 +87,7 @@ def data_producao(first_year: int, last_year: int):
     return data
 
 
-def data_processamento(first_year: int, last_year: int):
+def data_processamento(first_year, last_year):
     opt = 3
     final_year = _find_final_year(opt)
     data = []
@@ -111,7 +117,7 @@ def data_processamento(first_year: int, last_year: int):
     return data
 
 
-def data_comercializacao(first_year: int, last_year: int):
+def data_comercializacao(first_year, last_year):
     opt = 4
     final_year = _find_final_year(opt)
     data = []
@@ -141,7 +147,7 @@ def data_comercializacao(first_year: int, last_year: int):
     return data
 
 
-def data_importacao(first_year: int, last_year: int):
+def data_importacao(first_year, last_year):
     opt = 5
     final_year = _find_final_year(opt)
     data = []
@@ -169,7 +175,7 @@ def data_importacao(first_year: int, last_year: int):
     return data
 
 
-def data_exportacao(first_year: int, last_year: int):
+def data_exportacao(first_year, last_year):
     opt = 6
     final_year = _find_final_year(opt)
     data = []

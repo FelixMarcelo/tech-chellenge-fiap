@@ -50,7 +50,7 @@ async def user_login(
                              "Use the params to define a time range or leave it blank to get the whole period",
                  response_model=list[ProductionAndComercializationDTO]
                  )
-async def get_data_producao(first_year=1980, last_year=1980):
+async def get_data_producao(first_year, last_year):
     return data_producao(first_year, last_year)
 
 
@@ -59,7 +59,7 @@ async def get_data_producao(first_year=1980, last_year=1980):
                              "Use the params to define a time range or leave it blank to get the whole period",
                  response_model=list[ProcessingDTO]
                  )
-async def get_data_processamento(first_year: int, last_year: int):
+async def get_data_processamento(first_year, last_year):
     return data_processamento(first_year, last_year)
 
 
@@ -68,7 +68,7 @@ async def get_data_processamento(first_year: int, last_year: int):
                              "Use the params to define a time range or leave it blank to get the whole period",
                  response_model=list[ProductionAndComercializationDTO]
                  )
-async def get_data_processamento(first_year: int, last_year: int):
+async def get_data_comercializacao(first_year, last_year):
     return data_comercializacao(first_year, last_year)
 
 
@@ -77,7 +77,7 @@ async def get_data_processamento(first_year: int, last_year: int):
                              "Use the params to define a time range or leave it blank to get the whole period",
                  response_model=list[ImportationAndExportationDTO]
                  )
-async def get_data_importacao(first_year: int, last_year: int):
+async def get_data_importacao(first_year, last_year):
     return data_importacao(first_year, last_year)
 
 
@@ -86,5 +86,5 @@ async def get_data_importacao(first_year: int, last_year: int):
                              "Use the params to define a time range or leave it blank to get the whole period",
                  response_model=list[ImportationAndExportationDTO]
                  )
-async def get_data_exportacao(first_year: int, last_year: int):
+async def get_data_exportacao(first_year, last_year):
     return data_exportacao(first_year, last_year)
